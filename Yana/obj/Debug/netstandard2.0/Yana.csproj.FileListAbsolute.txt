@@ -1,0 +1,9 @@
+/Users/ross/projects/Yana/Yana/bin/Debug/netstandard2.0/Yana.deps.json
+/Users/ross/projects/Yana/Yana/bin/Debug/netstandard2.0/Yana.dll
+/Users/ross/projects/Yana/Yana/bin/Debug/netstandard2.0/Yana.pdb
+/Users/ross/projects/Yana/Yana/obj/Debug/netstandard2.0/Yana.csprojAssemblyReference.cache
+/Users/ross/projects/Yana/Yana/obj/Debug/netstandard2.0/Yana.csproj.CoreCompileInputs.cache
+/Users/ross/projects/Yana/Yana/obj/Debug/netstandard2.0/Yana.AssemblyInfoInputs.cache
+/Users/ross/projects/Yana/Yana/obj/Debug/netstandard2.0/Yana.AssemblyInfo.cs
+/Users/ross/projects/Yana/Yana/obj/Debug/netstandard2.0/Yana.dll
+/Users/ross/projects/Yana/Yana/obj/Debug/netstandard2.0/Yana.pdb
