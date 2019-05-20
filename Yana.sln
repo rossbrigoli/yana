@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yana", "Yana\Yana.csproj", "{97217444-A75C-4169-96E7-1F5617FBB65F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YanaTrader", "YanaTrader\YanaTrader.csproj", "{C20AA7A0-253C-4592-8C68-7A35C3B917B4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yana.Tests", "Yana.Tests\Yana.Tests.csproj", "{2F4A2965-9FAB-404A-BF55-7966F25520EA}"
 EndProject
 Global
