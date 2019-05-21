@@ -12,7 +12,7 @@ namespace com.rossbrigoli.Yana.Tests
         public void TestGetServerTime()
         {
             var client = new Client();
-            var result = client.GetServerTime();
+            var result = client.GetServerTime().Result;
             Assert.Empty(result.Error);
         }
 
@@ -20,7 +20,7 @@ namespace com.rossbrigoli.Yana.Tests
         public void TestGetAssetInfo()
         {
             var client = new Client();
-            var result = client.GetAssetInfo();
+            var result = client.GetAssetInfo().Result;
 
             Assert.Empty(result.Error);
             Assert.Equal(6, result.Result["ADA"].DisplayDecimals);
@@ -31,7 +31,7 @@ namespace com.rossbrigoli.Yana.Tests
         public void TestGetAssetPairDefault()
         {
             var client = new Client();
-            var result = client.GetAssetPairs();
+            var result = client.GetAssetPairs().Result;
 
             Assert.Empty(result.Error);
             Assert.Equal("XXBT", result.Result.Where(c => c.Value.WsName == "XBT/USD").First().Value.Base);
@@ -41,7 +41,7 @@ namespace com.rossbrigoli.Yana.Tests
         public void TestGetAssetPairNonDefault()
         {
             var client = new Client();
-            var result = client.GetAssetPairs("info", "ETHUSD");
+            var result = client.GetAssetPairs("info", "ETHUSD").Result;
 
             Assert.Empty(result.Error);
             Assert.Equal(1, result.Result.Count());
@@ -53,7 +53,7 @@ namespace com.rossbrigoli.Yana.Tests
         {
             var client = new Client();
             
-            var result = client.GetTicker("XTZEUR");
+            var result = client.GetTicker("XTZEUR").Result;
             Assert.Empty(result.Error);
             Assert.Equal(typeof(long[]), result.Result["XTZEUR"].t.GetType());
         }
@@ -63,7 +63,7 @@ namespace com.rossbrigoli.Yana.Tests
         {
             var client = new Client();
             
-            var result = client.GetTicker("XTZEUR", "XBTUSD");
+            var result = client.GetTicker("XTZEUR", "XBTUSD").Result;
             Assert.Empty(result.Error);
             Assert.Contains("XXBTZUSD", result.Result.Keys);
             Assert.Contains("XTZEUR", result.Result.Keys);
@@ -74,7 +74,7 @@ namespace com.rossbrigoli.Yana.Tests
         public void TestGetOHLCDataXBTUSD()
         {
             var client = new Client();
-            var result = client.GetOHLCData("XBTUSD");
+            var result = client.GetOHLCData("XBTUSD").Result;
 
             Assert.Empty(result.Error);
             Assert.Contains("XXBTZUSD", result.Result.PairName);
@@ -82,7 +82,19 @@ namespace com.rossbrigoli.Yana.Tests
             Assert.NotNull(result.Result.Data);
             Assert.True(100 < result.Result.Data.First().Time);
             Assert.True(1000.2M < result.Result.Data.First().High);
-        }        
+        }
+
+        [Fact]
+        public void TestGetOrderBook()
+        {
+            var client = new Client();
+            var result = client.GetOrderBook("XTZEUR").Result;
+
+            Assert.Empty(result.Error);
+            Assert.Equal("XTZEUR", result.AssetPair);
+            Assert.NotEmpty(result.Asks);
+            Assert.NotEmpty(result.Bids);
+        }
     }
 
 }
