@@ -87,12 +87,24 @@ namespace com.rossbrigoli.Yana
             return result;
         }
 
-        public async Task<OrderBookResponse> GetOrderBook(string assetPair, int? count = null)
+        public async Task<OrderBookResponse> GetOrderBook(string pair, int? count = null)
         {
-            var query = $"Depth?pair={assetPair}";
+            var query = $"Depth?pair={pair}";
             if (count.HasValue) query += $"&count={count}";
             var response = await _pubRestClient.GetStringAsync(query);
             var result = JsonConvert.DeserializeObject<OrderBookResponse>(response,
+                new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto }
+            );
+
+            return result;
+        }
+
+        public async Task<IKrakenResponse<TradeData>> GetRecentTrades(string pair, decimal? since = null)
+        {
+            var query = $"Trades?pair={pair}";
+            if (since.HasValue) query += $"&since={since}";
+            var response = await _pubRestClient.GetStringAsync(query);
+            var result = JsonConvert.DeserializeObject<KrakenResponse<TradeData>>(response,
                 new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto }
             );
 
