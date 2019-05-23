@@ -3,12 +3,6 @@ using Newtonsoft.Json;
 
 namespace com.rossbrigoli.Yana
 {
-    public class AssetPairResponse : IKrakenResponse
-    {
-        public string[] Error { get; set; }
-
-        public Dictionary<string, AssetPair> Result { get ; set; }
-    }
 
     public class AssetPair
     {

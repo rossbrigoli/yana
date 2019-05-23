@@ -3,13 +3,12 @@ using Newtonsoft.Json;
 
 namespace com.rossbrigoli.Yana
 {
-    [JsonConverter(typeof(OrderBookJsonConverter))]
-    public class OrderBookResponse : IKrakenResponse
+    [JsonConverter(typeof(KrakenJsonConverter<OrderBookDataMapper>))]
+    public class OrderBookData
     {
-        public string AssetPair { get; set; }
+        public string PairName { get; set; }
         public IEnumerable<OrderBookEntry> Asks { get; set; }
         public IEnumerable<OrderBookEntry> Bids { get; set; }
-        public string[] Error { get; set; }
     }
 
     public class OrderBookEntry

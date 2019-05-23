@@ -3,6 +3,7 @@ using Xunit;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Globalization;
 
 namespace com.rossbrigoli.Yana.Tests
 {
@@ -14,6 +15,9 @@ namespace com.rossbrigoli.Yana.Tests
             var client = new Client();
             var result = client.GetServerTime().Result;
             Assert.Empty(result.Error);
+            Assert.Equal(
+                UnixTime.Create(result.Result.UnixTime).ToUniversalTime().ToString("ddd, dd MMM yy HH':'mm':'ss '+0000'"), 
+                result.Result.Rfc1123);
         }
 
         [Fact]
@@ -53,9 +57,9 @@ namespace com.rossbrigoli.Yana.Tests
         {
             var client = new Client();
             
-            var result = client.GetTicker("XTZEUR").Result;
+            var result = client.GetTicker("XBTUSD").Result;
             Assert.Empty(result.Error);
-            Assert.Equal(typeof(long[]), result.Result["XTZEUR"].t.GetType());
+            Assert.True(0 < result.Result.AssetPairs.First().Value.High.Last24H);
         }
 
         [Fact]
@@ -65,9 +69,9 @@ namespace com.rossbrigoli.Yana.Tests
             
             var result = client.GetTicker("XTZEUR", "XBTUSD").Result;
             Assert.Empty(result.Error);
-            Assert.Contains("XXBTZUSD", result.Result.Keys);
-            Assert.Contains("XTZEUR", result.Result.Keys);
-            Assert.True(100 < result.Result["XXBTZUSD"].t[0]);
+            Assert.Contains("XXBTZUSD", result.Result.AssetPairs.Keys);
+            Assert.Contains("XTZEUR", result.Result.AssetPairs.Keys);
+            Assert.True(0 < result.Result.AssetPairs["XXBTZUSD"].High.Today);
         }
 
         [Fact]
@@ -80,7 +84,7 @@ namespace com.rossbrigoli.Yana.Tests
             Assert.Contains("XXBTZUSD", result.Result.PairName);
             Assert.True(100 < result.Result.Last);
             Assert.NotNull(result.Result.Data);
-            Assert.True(100 < result.Result.Data.First().Time);
+            Assert.True(result.Result.Data.First().Time < DateTime.Now.AddHours(1));
             Assert.True(1000.2M < result.Result.Data.First().High);
         }
 
@@ -91,9 +95,9 @@ namespace com.rossbrigoli.Yana.Tests
             var result = client.GetOrderBook("XTZEUR").Result;
 
             Assert.Empty(result.Error);
-            Assert.Equal("XTZEUR", result.AssetPair);
-            Assert.NotEmpty(result.Asks);
-            Assert.NotEmpty(result.Bids);
+            Assert.Equal("XTZEUR", result.Result.PairName);
+            Assert.NotEmpty(result.Result.Asks);
+            Assert.NotEmpty(result.Result.Bids);
         }
 
         [Fact]

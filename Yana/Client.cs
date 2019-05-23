@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -22,20 +23,20 @@ namespace com.rossbrigoli.Yana
             _pubRestClient.BaseAddress = new Uri(_krakenPubAddress);
         }
 
-        public async Task<TimeResponse> GetServerTime()
+        public async Task<IKrakenResponse<ServerTime>> GetServerTime()
         {
             var response = await _pubRestClient.GetStringAsync("Time");
-            var result = JsonConvert.DeserializeObject<TimeResponse>(response,
+            var result = JsonConvert.DeserializeObject<KrakenResponse<ServerTime>>(response,
                 new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto }
             );
 
             return result;
         }
 
-        public async Task<AssetInfoResponse> GetAssetInfo()
+        public async Task<IKrakenResponse<Dictionary<string, AssetInfo>>> GetAssetInfo()
         {
             var response = await _pubRestClient.GetStringAsync($"Assets");
-            var result = JsonConvert.DeserializeObject<AssetInfoResponse>(response,
+            var result = JsonConvert.DeserializeObject<KrakenResponse<Dictionary<string, AssetInfo>>>(response,
                 new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto}
             );
 
@@ -53,46 +54,46 @@ namespace com.rossbrigoli.Yana
         /// </param>
         /// <param name="pair">comma delimited list of asset pairs to get info on (optional.  default = all)</param>
         /// <returns></returns>
-        public async Task<AssetPairResponse> GetAssetPairs(string info="info", string pair=null)
+        public async Task<IKrakenResponse<Dictionary<string, AssetPair>>> GetAssetPairs(string info="info", string pair=null)
         {
             var query = $"AssetPairs?info={info}";
             if (pair != null) query += $"&pair={pair}";
             var response = await _pubRestClient.GetStringAsync(query);
-            var result = JsonConvert.DeserializeObject<AssetPairResponse>(response,
+            var result = JsonConvert.DeserializeObject<KrakenResponse<Dictionary<string, AssetPair>>>(response,
                 new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto}
             );
 
             return result;
         }
 
-        public async Task<TickerResponse> GetTicker(params string[] pairs)
+        public async Task<IKrakenResponse<TickerData>> GetTicker(params string[] pairs)
         {
             var response = await _pubRestClient.GetStringAsync($"Ticker?pair={String.Join(",",pairs)}");
-            var result = JsonConvert.DeserializeObject<TickerResponse>(response,
+            var result = JsonConvert.DeserializeObject<KrakenResponse<TickerData>>(response,
                 new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto }
             );
 
             return result;
         }
 
-        public async Task<OHLCResponse> GetOHLCData(string pair, long? interval = null, int? since = null)
+        public async Task<IKrakenResponse<OHLCData>> GetOHLCData(string pair, long? interval = null, int? since = null)
         {
             var query = $"OHLC?pair={pair}";
             if (interval != null) query += $"&interval={interval.Value}";
             if (since != null) query += $"&since={since.Value}";
             var response = await _pubRestClient.GetStringAsync(query);
-            var result = JsonConvert.DeserializeObject<OHLCResponse>(response,
+            var result = JsonConvert.DeserializeObject<KrakenResponse<OHLCData>>(response,
                 new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto }
             );
             return result;
         }
 
-        public async Task<OrderBookResponse> GetOrderBook(string pair, int? count = null)
+        public async Task<IKrakenResponse<OrderBookData>> GetOrderBook(string pair, int? count = null)
         {
             var query = $"Depth?pair={pair}";
             if (count.HasValue) query += $"&count={count}";
             var response = await _pubRestClient.GetStringAsync(query);
-            var result = JsonConvert.DeserializeObject<OrderBookResponse>(response,
+            var result = JsonConvert.DeserializeObject<KrakenResponse<OrderBookData>>(response,
                 new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto }
             );
 

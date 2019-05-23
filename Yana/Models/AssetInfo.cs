@@ -3,12 +3,6 @@ using Newtonsoft.Json;
 
 namespace com.rossbrigoli.Yana
 {
-    public class AssetInfoResponse : IKrakenResponse
-    {
-        public string[] Error { get; set; }
-        public Dictionary<string, AssetInfo> Result { get; set; }
-    }
-
     public class AssetInfo
     {
         [JsonProperty("aclass")]

@@ -1,17 +1,11 @@
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace com.rossbrigoli.Yana
 {
-    public class OHLCResponse : IKrakenResponse
-    {
-        public string[] Error { get; set; }
-
-        public OHLCData Result { get; set; }
-    }
-
-    [JsonConverter(typeof(OHLCJsonConverter))]
+    [JsonConverter(typeof(KrakenJsonConverter<OHLCDataMapper>))]
     public class OHLCData
     {
         public string PairName { get; set; }
@@ -21,7 +15,7 @@ namespace com.rossbrigoli.Yana
 
     public class OHLCDataEntry
     {
-        public long Time { get; set; }
+        public DateTime Time { get; set; }
         public decimal Open { get; set; }
         public decimal High { get; set; }
         public decimal Low { get; set; }
