@@ -113,6 +113,19 @@ namespace com.rossbrigoli.Yana.Tests
             Assert.NotEmpty(result.Result.Trades);
             Assert.NotEmpty(result.Result.Trades.Where(t => t.TradeType == TradeType.Sell));
         }
+
+        [Fact]
+        public void TestGetRecentSpreadData()
+        {
+            var client = new Client();
+            var result = client.GetRecentSpreadData("XTZEUR").Result;
+
+            Assert.Empty(result.Error);
+            Assert.Equal("XTZEUR", result.Result.PairName);
+            Assert.True(result.Result.Data.First().Time < DateTime.Now.AddMinutes(5));
+            Assert.True(result.Result.Data.Last().Ask > 0M);
+            Assert.True(result.Result.Data.First().Bid > 0M);
+        }
     }
 
 }

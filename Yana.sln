@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yana", "Yana\Yana.csproj", "{97217444-A75C-4169-96E7-1F5617FBB65F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yana", "src\Yana.csproj", "{97217444-A75C-4169-96E7-1F5617FBB65F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yana.Tests", "Yana.Tests\Yana.Tests.csproj", "{2F4A2965-9FAB-404A-BF55-7966F25520EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yana.Tests", "test\Yana.Tests.csproj", "{2F4A2965-9FAB-404A-BF55-7966F25520EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
