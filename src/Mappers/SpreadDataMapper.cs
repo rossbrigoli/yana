@@ -18,7 +18,7 @@ namespace com.rossbrigoli.Yana
             foreach( var trade in data)
             {
                 var entry = new SpreadEntry();
-                entry.Time = UnixTime.Create(double.Parse(trade[0].ToString()));
+                entry.Time = FromUnixTime.Create(double.Parse(trade[0].ToString()));
                 entry.Bid = decimal.Parse(trade[0].ToString());
                 entry.Ask = decimal.Parse(trade[1].ToString());
 

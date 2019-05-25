@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
@@ -15,6 +16,6 @@ namespace com.rossbrigoli.Yana
     {
         public decimal Price { get; set; }
         public decimal Volume { get; set; }
-        public long TimeStamp { get; set; }
+        public DateTime TimeStamp { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace com.rossbrigoli.Yana
             foreach(var item in data)
             {
                 var entry = new OHLCDataEntry();
-                entry.Time = UnixTime.Create(double.Parse(item[0].ToString()));
+                entry.Time = FromUnixTime.Create(double.Parse(item[0].ToString()));
                 entry.Open = decimal.Parse(item[1].ToString());
                 entry.High = decimal.Parse(item[2].ToString());
                 entry.Low =  decimal.Parse(item[3].ToString());

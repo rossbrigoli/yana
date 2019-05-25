@@ -16,7 +16,7 @@ namespace com.rossbrigoli.Yana.Tests
             var result = client.GetServerTime().Result;
             Assert.Empty(result.Error);
             Assert.Equal(
-                UnixTime.Create(result.Result.UnixTime).ToUniversalTime().ToString("ddd, dd MMM yy HH':'mm':'ss '+0000'"), 
+                FromUnixTime.Create(result.Result.UnixTime).ToUniversalTime().ToString("ddd, dd MMM yy HH':'mm':'ss '+0000'"), 
                 result.Result.Rfc1123);
         }
 

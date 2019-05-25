@@ -26,7 +26,7 @@ namespace com.rossbrigoli.Yana
                 var item = new OrderBookEntry();
                 item.Price = decimal.Parse(askEntry[0].ToString());
                 item.Volume = decimal.Parse(askEntry[1].ToString());
-                item.TimeStamp = long.Parse(askEntry[2].ToString());
+                item.TimeStamp = FromUnixTime.Create(double.Parse(askEntry[2].ToString()));
                 askEntries.Add(item);
             }
 
@@ -38,7 +38,7 @@ namespace com.rossbrigoli.Yana
                 var item = new OrderBookEntry();
                 item.Price = decimal.Parse(bidEntry[0].ToString());
                 item.Volume = decimal.Parse(bidEntry[1].ToString());
-                item.TimeStamp = long.Parse(bidEntry[2].ToString());
+                item.TimeStamp = FromUnixTime.Create(double.Parse(bidEntry[2].ToString()));
                 bidEntries.Add(item);
             }
 

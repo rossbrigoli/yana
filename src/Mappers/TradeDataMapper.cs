@@ -26,7 +26,7 @@ namespace com.rossbrigoli.Yana
                 var entry = new Trade();
                 entry.Price = decimal.Parse(trade[0].ToString());
                 entry.Volume = decimal.Parse(trade[1].ToString());
-                entry.Time = UnixTime.Create(double.Parse(trade[2].ToString()));
+                entry.Time = FromUnixTime.Create(double.Parse(trade[2].ToString()));
                 entry.TradeType = EnumHelper.GetValueFromDesc<TradeType>(trade[3].ToString());
                 entry.MarketOrLimit = EnumHelper.GetValueFromDesc<MarketOrLimit>(trade[4].ToString());
                 entry.Miscellaneous = trade[5].ToString();
