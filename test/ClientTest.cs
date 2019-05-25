@@ -48,7 +48,7 @@ namespace com.rossbrigoli.Yana.Tests
             var result = client.GetAssetPairs("info", "ETHUSD").Result;
 
             Assert.Empty(result.Error);
-            Assert.Equal(1, result.Result.Count());
+            Assert.True(1 == result.Result.Count());
             Assert.Equal("XETH", result.Result.Where(c => c.Value.WsName == "ETH/USD").First().Value.Base);
         }
 
