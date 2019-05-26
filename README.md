@@ -5,7 +5,9 @@ See [Kraken API Documentation](https://www.kraken.com/features/api) for details 
 
 
 <br />
-##Tests
+
+## Tests
+
 To make the tests work with Kraken authentication, you need to:
 
 1. Create a text file with a file name: **apikey.secret**
