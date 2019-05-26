@@ -40,12 +40,12 @@ namespace com.rossbrigoli.Yana
             }
         }
 
-        private Func<long> GetNonce { get; set; } = () => 
-        { 
-            lock(_nonceLock) 
-            { 
+        private Func<long> GetNonce { get; set; } = () =>
+        {
+            lock(_nonceLock)
+            {
                 return DateTime.UtcNow.Ticks;
-            } 
+            }
         };
 
         private async Task<IKrakenResponse<T>> RequestPublic<T>(string urlQuery)
@@ -64,14 +64,14 @@ namespace com.rossbrigoli.Yana
             var urlPath = _krakenPvtApi + api;
 
             var nonce = GetNonce().ToString(CultureInfo.InvariantCulture);
-            if (query == null) 
+            if (query == null)
             {
                 query = new Dictionary<string, string>();
             }
 
             query.Add("nonce", nonce);
 
-            var postData = string.Join("&", 
+            var postData = string.Join("&",
                 query.Where(c => c.Value != null)
                      .Select(d => $"{d.Key}={WebUtility.UrlEncode(d.Value)}")
                     );
@@ -173,12 +173,21 @@ namespace com.rossbrigoli.Yana
             query.Add("asset", asset);
             var result =  await RequestPrivate<TradeBalanceData>("TradeBalance", query);
             return result;
+        }
 
+        public async Task<IKrakenResponse<OrderData>> GetOpenOrders(bool includeTrades = false, string userReference = null)
+        {
+            var query = new Dictionary<string, string>();
+            if (includeTrades) query.Add("trades", includeTrades.ToString());
+            if (userReference != null) query.Add("userref", userReference);
+            var result =  await RequestPrivate<OrderData>("OpenOrders", query);
+            return result;
         }
 
         public void Dispose()
         {
             _pubRestClient.Dispose();
+            _pvtRestClient.Dispose();
         }
     }
 

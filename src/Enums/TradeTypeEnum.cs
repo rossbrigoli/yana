@@ -9,4 +9,12 @@ namespace com.rossbrigoli.Yana
         [Description("s")]
         Sell = 1
     }
+
+    public enum TradeTypeOrder
+    {
+        [Description("buy")]
+        Buy = 0,
+        [Description("sell")]
+        Sell = 1
+    }
 }

@@ -45,7 +45,18 @@ namespace com.rossbrigoli.Yana.Tests
 
             var result = client.GetTradeBalance(asset:"EUR").Result;
             Assert.Empty(result.Error);
+            Assert.Equal(typeof(TradeBalanceData), result.Result.GetType());
             Assert.True(1 < result.Result.TradeBalance);
+        }
+
+        [Fact]
+        public void TestGetOpenOrders()
+        {
+            var client = new Client(_apiKey, _apiSecret);
+
+            var result = client.GetOpenOrders().Result;
+            Assert.Empty(result.Error);
+            Assert.Equal(typeof(OrderData), result.Result.GetType());
         }
     }
 }
