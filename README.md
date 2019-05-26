@@ -15,7 +15,11 @@ To make the tests work with Kraken authentication, you need to:
 3. The file must be formated in a key value pair with a white space separating the key and the value.
 
     >key ABCDEFGHIJKLMNOP1234567989APIKEY0123\
+<<<<<<< HEAD
     >secret ABCDEFGHIJKLMNOP1234567989APISECRET0123
+=======
+    >secret ABCDEFMNOP1234567989APISECRET0123
+>>>>>>> f9bad7c984d408729b5e0779e53ee1fe56469058
     
 4. In the project root directory, run **dotnet test**
 
