@@ -1,10 +1,11 @@
 # Yana
-.NET Core API Client for Kraken
+.NET Core API Client for Kraken built for .NET Standard 2.0
 
-Built for .NET Standard 2.0
+See [Kraken API Documentation](https://www.kraken.com/features/api) for details and usage of the APIs.
 
-[Kraken API Documentation](https://www.kraken.com/features/api)
 
+<br />
+##Tests
 To make the tests work with Kraken authentication, you need to:
 
 1. Create a text file with a file name: **apikey.secret**
@@ -16,4 +17,6 @@ To make the tests work with Kraken authentication, you need to:
     
 4. In the project root directory, run **dotnet test**
 
+\
+\
 Good luck!
