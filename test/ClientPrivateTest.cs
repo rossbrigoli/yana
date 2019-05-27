@@ -58,5 +58,15 @@ namespace com.rossbrigoli.Yana.Tests
             Assert.Empty(result.Error);
             Assert.Equal(typeof(OrderData), result.Result.GetType());
         }
+
+        [Fact]
+        public void TestGetClosedOrders()
+        {
+            var client = new Client(_apiKey, _apiSecret);
+
+            var result = client.GetClosedOrders(100).Result;
+            Assert.Empty(result.Error);
+            Assert.Equal(typeof(OrderData), result.Result.GetType());
+        }
     }
 }

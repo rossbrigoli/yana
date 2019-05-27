@@ -184,6 +184,18 @@ namespace com.rossbrigoli.Yana
             return result;
         }
 
+        public async Task<IKrakenResponse<OrderData>> GetClosedOrders(
+            long resultOffset, bool includeTrades = false, string userReference = null,
+            DateTime? startTime = null, DateTime? endTime = null, string closeTime = "both"
+        )
+        {
+            var query = new Dictionary<string, string>();
+            if (includeTrades) query.Add("trades", includeTrades.ToString());
+            if (userReference != null) query.Add("userref", userReference);
+            var result =  await RequestPrivate<OrderData>("ClosedOrders", query);
+            return result;
+        }
+
         public void Dispose()
         {
             _pubRestClient.Dispose();

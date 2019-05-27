@@ -10,6 +10,7 @@ namespace com.rossbrigoli.Yana
     {
         public IEnumerable<OrderInfo> OpenOrders { get; set; }
         public IEnumerable<OrderInfo> ClosedOrders {get; set; }
+        public long Count { get; set; }
     }
 
     public class OrderInfo
@@ -31,6 +32,8 @@ namespace com.rossbrigoli.Yana
         public string Misc { get; set; }
         public string OrderFlags { get ;set;}
         public IEnumerable<string> Trades { get; set; }
+        public DateTime? CloseTime { get; set; }
+        public string Reason { get; set; }
     }
 
     public class OrderDesc

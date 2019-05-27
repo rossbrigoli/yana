@@ -11,15 +11,32 @@ namespace com.rossbrigoli.Yana
         public OrderData MapFields(JObject jo)
         {
             //var jp = jo.Properties().First();
-            var data  = jo.ToObject<Dictionary<string, Dictionary<string, Dictionary<string, object>>>>();
-            var openOrders = data["open"];
+            var data  = jo.ToObject<Dictionary<string, JToken>>();//Dictionary<string, Dictionary<string, object>>>>();
+
             var orderData = new OrderData();
 
-            var infoList = new List<OrderInfo>();
-            foreach(var entry in openOrders)
+            if(data.ContainsKey("open"))
+            {
+                var openOrders = data["open"].ToObject<Dictionary<string, Dictionary<string, object>>>();            
+                orderData.OpenOrders = GenerateOrderInfo(openOrders);
+            }
+
+            if(data.ContainsKey("closed"))
+            {
+                var closedOrders = data["closed"].ToObject<Dictionary<string, Dictionary<string, object>>>();
+                orderData.ClosedOrders = GenerateOrderInfo(closedOrders);
+
+                orderData.Count = long.Parse(data["count"].ToString());
+            }
+
+            return orderData;
+        }
+
+        private IEnumerable<OrderInfo> GenerateOrderInfo(Dictionary<string, Dictionary<string, object>> data)
+        {
+            foreach(var entry in data)
             {
                 var info = new OrderInfo();
-                infoList.Add(info);
 
                 info.ReferenceId = entry.Key;
                 info.UserReferenceId = long.Parse(entry.Value["userref"].ToString());
@@ -36,13 +53,14 @@ namespace com.rossbrigoli.Yana
                 info.LimitPrice = decimal.Parse(entry.Value["limitprice"].ToString());
                 info.Misc = entry.Value["misc"].ToString();
                 info.Trades = entry.Value.ContainsKey("trades") ? (IEnumerable<string>) entry.Value["trades"] : null;
+                info.CloseTime = entry.Value.ContainsKey("closetm") ? (Nullable<DateTime>) FromUnixTime.Create(long.Parse(entry.Value["closetm"].ToString())) : null;
+                info.Reason = entry.Value.ContainsKey("reason") ? entry.Value["reason"].ToString() : null;
 
                 var jObj = entry.Value["descr"] as JObject;
                 info.DescriptionInfo = jObj.ToObject<OrderDesc>();
-            }
-            orderData.OpenOrders = infoList;
 
-            return orderData;
+                yield return info;
+            }
         }
     }
 }
