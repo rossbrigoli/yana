@@ -8,15 +8,15 @@ namespace com.rossbrigoli.Yana
     [JsonConverter(typeof(KrakenJsonConverter<OrderDataMapper>))]
     public class OrderData
     {
-        public IEnumerable<OrderInfo> OpenOrders { get; set; }
-        public IEnumerable<OrderInfo> ClosedOrders {get; set; }
+        public IEnumerable<OrderInfo> Orders { get; set; }
         public long Count { get; set; }
     }
 
     public class OrderInfo
     {
+        public string TransactionId { get; set; }
         public string ReferenceId { get; set; }
-        public long UserReferenceId { get; set; }
+        public string UserReferenceId { get; set; }
         public OrderStatus Status { get; set; }
         public DateTime OpenTime { get; set; }
         public DateTime StartTime { get; set; }

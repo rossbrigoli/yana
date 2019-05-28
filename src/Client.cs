@@ -178,7 +178,7 @@ namespace com.rossbrigoli.Yana
         public async Task<IKrakenResponse<OrderData>> GetOpenOrders(bool includeTrades = false, string userReference = null)
         {
             var query = new Dictionary<string, string>();
-            if (includeTrades) query.Add("trades", includeTrades.ToString());
+            if (includeTrades) query.Add("trades", includeTrades.ToString().ToLower());
             if (userReference != null) query.Add("userref", userReference);
             var result =  await RequestPrivate<OrderData>("OpenOrders", query);
             return result;
@@ -193,6 +193,18 @@ namespace com.rossbrigoli.Yana
             if (includeTrades) query.Add("trades", includeTrades.ToString());
             if (userReference != null) query.Add("userref", userReference);
             var result =  await RequestPrivate<OrderData>("ClosedOrders", query);
+            return result;
+        }
+
+        public async Task<IKrakenResponse<OrderData>> GetOrders(IEnumerable<string> txnIds, 
+            string userReference = null, bool? includeTrades = false)
+        {
+            var query = new Dictionary<string, string>();
+            if (includeTrades.HasValue && includeTrades.Value) query.Add("trades", includeTrades.ToString());
+            if (userReference != null) query.Add("userref", userReference);
+            var trans = string.Join(",",txnIds);
+            query.Add("txid", trans);
+            var result =  await RequestPrivate<OrderData>("QueryOrders", query);
             return result;
         }
 

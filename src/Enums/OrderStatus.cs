@@ -10,7 +10,7 @@ namespace com.rossbrigoli.Yana
         Open = 1,
         [Description("closed")]
         Closed = 2,
-        [Description("cancelled")]
+        [Description("canceled")]
         Cancelled = 3,
         [Description("expired")]
         Expired = 4
