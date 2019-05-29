@@ -72,6 +72,7 @@ namespace com.rossbrigoli.Yana.Tests
             Assert.NotEmpty(result.Result.Orders.Where(o => o.Status == OrderStatus.Closed));
         }
 
+        [Fact]
         public void TestGetClosedOrdersWithTrades()
         {
             var client = new Client(_apiKey, _apiSecret);
@@ -80,7 +81,7 @@ namespace com.rossbrigoli.Yana.Tests
             Assert.Empty(result.Error);
             Assert.Equal(typeof(OrderData), result.Result.GetType());
             Assert.NotEmpty(result.Result.Orders.Where(o => o.Status == OrderStatus.Closed));
-            Assert.True(result.Result.Orders.Any(o => o.Trades.Any()));
+            Assert.True(0 < result.Result.Orders.Count(o => o.Trades.Any()));
         }
 
         [Fact]
@@ -106,7 +107,7 @@ namespace com.rossbrigoli.Yana.Tests
             var result = client.GetOrders(txnArgs, null, true).Result;
             Assert.Empty(result.Error);
             Assert.Equal(typeof(OrderData), result.Result.GetType());
-            Assert.True(result.Result.Orders.Any(o => o.Trades.Any()));
+            Assert.True(0 < result.Result.Orders.Count(o => o.Trades.Any()));
         }
     }
 }
